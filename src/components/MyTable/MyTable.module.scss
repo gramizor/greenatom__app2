@@ -4,7 +4,7 @@
   width: 100%;
   border-collapse: collapse;
   // margin-bottom: 20px;
-  user-select: none;
+  user-select: none!important;
 
   th,
   td {
@@ -34,11 +34,13 @@
 .tableContainer {
   // height: 80vh;
   min-height: 70vh;
+  height: 100%;
   // max-height: 70vh;
   overflow-y: scroll;
   background-color: #eeeeee;
   z-index: 20;
   position: relative;
+  user-select: none;
 }
 
 .tableHeader, thead {
@@ -49,6 +51,7 @@
 }
 
 .paginator {
+  user-select: none;
   background-color: #d9d9d9;
   // margin-top: 30px;
   border: 1px solid #ddd;
@@ -61,10 +64,11 @@
   position: relative;
 
   input {
-    // max-width: 100px;
-    max-width: 100px;
     min-width: max-content;
-    // text-align: center;
+  }
+
+  input[type="number"] {
+    max-width: 60px;
   }
 
   .side {
