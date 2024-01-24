@@ -92,11 +92,6 @@ const MyTableButtonGroup: React.FC<IMyTableButtonGroup> = ((props) => {
           modalmobx.show()
         }}
       >Удалить</Button>
-
-      <Button
-        variant="light"
-        size="sm"
-        onClick={() => { props.mobx.getAll(zipObject(Object.keys(props.paginator), [mytablepaginator.page, mytablepaginator.size]));; notificator.push({ children: "Данные обновлены" }) }}>Обновить</Button>
       <Button
         variant="light"
         size="sm"
