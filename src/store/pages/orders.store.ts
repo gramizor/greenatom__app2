@@ -10,7 +10,7 @@ Orders.constTableAlias = {
 
   clientId: {title: "ID клиента", inputType: "number"},
 
-  employee: {title: "Сотрудник", inputType: "selector", props: {options: () => {return [{name: "CURRENT_ACCOUNT", displayName: `Моя учетная запись (${Orders.constData.username})`}]}}},
+  employee: {title: "Сотрудник", inputType: "selector", props: {options: () => {return [{name: "CURRENT_ACCOUNT", displayName: `Моя учетная запись сотрудника`}]}}},
   linkToFolder: {title: "Документ"},
   orderDate: {title: "Дата заказа"},
   orderStatus: {title: "Статус заказа", inputType: "selector", props: {options: () => {return [ {name: "DRAFT", displayName: "Черновик"}, {name: "SIGNED_BY_EMPLOYEE", displayName: "Подписан сотрудником"}, {name: "SIGNED_BY_CLIENT", displayName: "Подписан клиентом"}, {name: "IN_PROCESS", displayName: "В процессе"}, {name: "FINISHED", displayName: "Завершен"}, {name: "DELIVERY_FINISHED", displayName: "Доставка завершена"} ]}}},

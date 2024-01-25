@@ -17,7 +17,7 @@ export interface IConstTableAliasScheme {
   title: string,
   formTag?: ITableFormAction[],
   dataType?: "number" | "string",
-  inputType?: React.HTMLInputTypeAttribute | "selector" | "boolean",
+  inputType?: React.HTMLInputTypeAttribute | "selector" | "boolean" | "date",
   props?: { openWithDefaultValues?: () => any } & Record<string, () => any>;
   notInForm?: boolean
 }

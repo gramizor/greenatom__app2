@@ -83,7 +83,9 @@ class Authentificator {
     // console.log("Exp at", this._tokenData().exp, new Date(this._tokenData().exp))
     // console.log("Exp at * 1000", this._tokenData().exp, new Date(this._tokenData().exp * 1000))
     // console.log("Now", Date.now(), new Date(Date.now()))
-    return (Date.now() < (this._tokenData().exp * 1000)) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
+    // return (Date.now() < (this._tokenData().exp * 1000)) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
+    // return (true) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
+    return (this.gotUserData()) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
     // return ((Date.now() < (this._tokenData().exp * 1000)) && !!Object.keys(this.constUserData).length) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
   }
 

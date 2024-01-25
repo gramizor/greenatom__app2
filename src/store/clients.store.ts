@@ -19,7 +19,7 @@ Clients.constTableAlias = {
   email: { title: "Эл. почта" },
   phoneNumber: { title: "Телефон" },
   legalEntity: { title: "Юр. лицо", inputType: "boolean" },
-  clientSource: { title: "Клиент источник", inputType: "selector", props: { options: () => { return [{ name: "CRM" }, { name: "SELF_SERVICE" }] } } },
+  clientSource: { title: "Клиент источник", inputType: "selector", props: { options: () => { return [ { name: "", displayName: "Не выбрано" }, { name: "CRM" }, { name: "SELF_SERVICE" }] } } },
 
 
   password: { title: "Пароль", formTag: ["create"], inputType: "password" }
