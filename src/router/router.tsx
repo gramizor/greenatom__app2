@@ -32,7 +32,7 @@ const Employer = React.lazy(() => import("../pages/Employee"));
 // поле description отображается на главной странице как подпись к названию страницы
 export const ROUTES = {
   employees: { route: "/employees", name: "Сотрудники", description: "Просмотр сотрудников, изменение учетных данных сотрудников" },
-  products: { route: "/warehouse", name: "Склад и продукты", description: "Редактирование продуктов и номенклатурных групп" },
+  products: { route: "/warehouse", name: "Продукты", description: "Редактирование продуктов и номенклатурных групп" },
   orders: { route: "/orders", name: "Заказы", description: "Просмотр и управление заказами" },
   cart: { route: "/cart", name: "Корзина", description: "Просмотр собственной корзины" },
   warehouse: { route: "/warehouse", name: "Склад", description: "Учет товаров на складе" },
@@ -44,7 +44,7 @@ export const ROUTES = {
 export const ROUTES_BY_ROLE: any = {
   ROLE_SUPER_ADMIN: [
     ROUTES.employees,
-    ROUTES.products,
+    // ROUTES.products,
     ROUTES.orders,
     ROUTES.cart,
     ROUTES.warehouse,
