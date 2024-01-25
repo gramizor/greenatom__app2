@@ -55,7 +55,7 @@ export const InputFile: React.FC<IPropsInput> = (props) => {
       setDocxFile(selectedDocx);
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log(reader.result);
+        // console.log(reader.result);
         inputfilestore.set(props.name || "default", reader.result);
       };
       reader.readAsDataURL(selectedDocx);

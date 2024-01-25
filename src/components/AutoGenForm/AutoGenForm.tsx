@@ -72,22 +72,22 @@ const submitForm = (e: React.FormEvent<HTMLFormElement>, mobx: IMyTableMOBX, act
     else
       data = obj[fieldName]
 
-    console.log(data)
+    // console.log(data)
 
     if (!([undefined, null, ""].includes(data)))
       requestBody = createFieldsByPath(requestBody, fieldName, data);
   })
 
-  console.log(objFromMobx(requestBody));
+  // console.log(objFromMobx(requestBody));
 
   mobx[action as ITableMobxFormAction] && mobx[action as ITableMobxFormAction](requestBody as any)
     .then((resp: number) => {
-      console.log(resp);
+      // console.log(resp);
       mobx.getAll({ [mytablepaginator.pageName]: mytablepaginator.page, [mytablepaginator.sizeName]: mytablepaginator.size })
       notificator.push({ children: "Изменена таблица", type: "positive" })
     })
     .catch((resp: number) => {
-      console.log(resp)
+      // console.log(resp)
       notificator.push({ children: "Таблица не была изменена. Проверьте введенные данные", type: "error" })
     })
 

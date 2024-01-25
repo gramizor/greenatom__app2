@@ -117,7 +117,7 @@ const MyTableItem: React.FC<{ value: any, data_uid: number, [key: string]: any }
   return <td
     key={props.jndex}
     onDoubleClick={() => {
-      console.log(props.data_uid)
+      // console.log(props.data_uid)
       modalmobx.setChildren(<AutoGenForm mobx={props.mobx} action="edit" openWithDefaultValues={{ id: props.data_uid }} />)
       modalmobx.show()
     }}

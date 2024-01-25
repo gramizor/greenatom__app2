@@ -11,12 +11,12 @@ type Props = { children: React.ReactNode };
 const ProtectedRouter = ({ children }: Props) => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(authentificator._tokenData())
+    // console.log(authentificator._tokenData())
 
     if (["ROLE_SUPER_ADMIN", "ROLE_ADMIN"].includes(authentificator._tokenData().role)) {
       authentificator.getMe()
       .then(content => {
-        console.log({...content})
+        // console.log({...content})
       })
       .catch((error) => {
         notificator.push({children: `${error}`});

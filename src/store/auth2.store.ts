@@ -75,7 +75,7 @@ class Authentificator {
     }
     if (responseData?.refreshToken) LocalStorage.set("rt", responseData?.refreshToken);
     this.varTokenData = { ...responseData };
-    console.log("Токены обновлены")
+    // console.log("Токены обновлены")
   }
 
   isAuth(): boolean {
