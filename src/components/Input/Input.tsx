@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import styles from "./Input.module.scss";
 import SvgEyeOpen from "../../assets/svg/ui-eye-open.svg";
 import SvgEyeClose from "../../assets/svg/ui-eye-close.svg";
@@ -61,6 +61,12 @@ export const InputFile: React.FC<IPropsInput> = (props) => {
       reader.readAsDataURL(selectedDocx);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      inputfilestore.rm(props.name || "default");
+    }
+  }, [])
 
   return <Input {...props} type="file" onChange={(e) => handleDocxChange(e)}/>
 }

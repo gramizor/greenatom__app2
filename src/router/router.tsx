@@ -10,6 +10,7 @@ import Warehouse from "../pages/Warehouse";
 import Order from "../pages/Order";
 import Delivery from "../pages/Delivery";
 import Cart from "../pages/Cart";
+import Client from "../pages/Client";
 
 const Login = React.lazy(() => import("../pages/Login"));
 const Main = React.lazy(() => import("../components/Main/Main"));
@@ -31,7 +32,7 @@ const Employer = React.lazy(() => import("../pages/Employee"));
 // поле description отображается на главной странице как подпись к названию страницы
 export const ROUTES = {
   employees: { route: "/employees", name: "Сотрудники", description: "Просмотр сотрудников, изменение учетных данных сотрудников" },
-  products: { route: "/products", name: "Продукты", description: "Редактирование продуктов и номенклатурных групп" },
+  products: { route: "/warehouse", name: "Склад и продукты", description: "Редактирование продуктов и номенклатурных групп" },
   orders: { route: "/orders", name: "Заказы", description: "Просмотр и управление заказами" },
   cart: { route: "/cart", name: "Корзина", description: "Просмотр собственной корзины" },
   warehouse: { route: "/warehouse", name: "Склад", description: "Учет товаров на складе" },
@@ -152,6 +153,16 @@ export const router = createBrowserRouter([
           <React.Suspense fallback={<Loader />}>
             <ProtectedRouter>
               <Cart />
+            </ProtectedRouter>
+          </React.Suspense>
+        ),
+      },
+      {
+        path: ROUTES.clients.route,
+        element: (
+          <React.Suspense fallback={<Loader />}>
+            <ProtectedRouter>
+              <Client />
             </ProtectedRouter>
           </React.Suspense>
         ),

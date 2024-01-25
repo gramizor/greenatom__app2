@@ -15,7 +15,12 @@ export const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
 }
 
-
+/**
+ * При создании экземпляра этого класса укажите обязательные поля:
+ * - `constTableTitle` - название таблицы
+ * - `apiEndpoint` - точка запроса (например `/api/products/`)
+ * - `constTableAlias` - подписи и типы данных для формы
+ */
 class ParentMobXStore {
   constructor() {
     makeAutoObservable(this)

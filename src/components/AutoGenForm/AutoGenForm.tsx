@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import Select from "../Select/Select";
 import Input, { EyeInput, InputFile } from "../Input/Input";
 import { observer } from "mobx-react-lite";
-import { isEmpty } from "lodash";
+import { isEmpty, toNumber } from "lodash";
 import { createFieldsByPath, objFromMobx } from "../../helpers/main.helper";
 import Button from "../Button/Button";
 import styles from "./AutoGenForm.module.scss";
@@ -51,8 +51,8 @@ const submitForm = (e: React.FormEvent<HTMLFormElement>, mobx: IMyTableMOBX, act
   const formData = new FormData(e.currentTarget);
   const obj: { [key: string]: any } = { ...(Object.fromEntries(formData.entries()) as unknown) as object };
 
-  console.log(formData)
-  console.log(obj)
+  // console.log(formData)
+  // console.log(obj)
 
   var requestBody = {};
 
@@ -66,12 +66,15 @@ const submitForm = (e: React.FormEvent<HTMLFormElement>, mobx: IMyTableMOBX, act
     else if (mobx.constTableAlias[fieldName].inputType === "file") {
       data = inputfilestore.get("default") || inputfilestore.get(fieldName);
     }
+    else if (mobx.constTableAlias[fieldName].inputType === "boolean") {
+      data = !(toNumber(obj[fieldName]));
+    }
     else
       data = obj[fieldName]
 
     console.log(data)
 
-    if (!isEmpty(data))
+    if (!([undefined, null, ""].includes(data)))
       requestBody = createFieldsByPath(requestBody, fieldName, data);
   })
 
@@ -131,7 +134,7 @@ const AutoGenForm: React.FC<IPropsAutoGenForm> = (props) => {
   }
 
   useEffect(() => {
-    console.log(props.mobx.constData)
+    // console.log(props.mobx.constData)
   }, [props.mobx.constData])
 
   const tableAlias = props.mobx.constTableAlias;
@@ -166,7 +169,9 @@ const AutoGenForm: React.FC<IPropsAutoGenForm> = (props) => {
                                 ? <EyeInput name={`${aliasName}`} id={aliasName} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
                                 : tableAlias[aliasName].inputType === "file"
                                     ? <InputFile name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
-                                    : <Input name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
+                                    : tableAlias[aliasName].inputType === "boolean"
+                                      ? <Select name={`${aliasName}`} id={aliasName} {...tableAlias[aliasName].props} options={[{name: "Да"}, {name: "Нет"}]} />
+                                      : <Input name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
                           }
                         </td>
                         : ''
