@@ -35,7 +35,8 @@ export const ROUTES = {
   orders: { route: "/orders", name: "Заказы", description: "Просмотр и управление заказами" },
   cart: { route: "/cart", name: "Корзина", description: "Просмотр собственной корзины" },
   warehouse: { route: "/warehouse", name: "Склад", description: "Учет товаров на складе" },
-  delivery: { route: "/delivery", name: "Доставка", description: "Оперирование статусами доставки" }
+  delivery: { route: "/delivery", name: "Доставка", description: "Оперирование статусами доставки" },
+  clients: { route: "/clients", name: "Клиенты", description: "Просмотр, создание и редактирование клиентов" }
 }
 // также здесь находится актуальный перечень ролей в качестве
 // ключей этого объекта
@@ -47,6 +48,7 @@ export const ROUTES_BY_ROLE: any = {
     ROUTES.cart,
     ROUTES.warehouse,
     ROUTES.delivery,
+    ROUTES.clients
   ],
   ROLE_ADMIN: [
     ROUTES.employees,
@@ -55,13 +57,16 @@ export const ROUTES_BY_ROLE: any = {
   ROLE_MANAGER: [
     ROUTES.products,
     ROUTES.orders,
-    ROUTES.cart
+    ROUTES.cart,
+    ROUTES.clients
   ],
   ROLE_WAREHOUSE_WORKER: [
-    ROUTES.warehouse
+    ROUTES.warehouse,
+    ROUTES.orders
   ],
   ROLE_COURIER: [
-    ROUTES.delivery
+    ROUTES.delivery,
+    ROUTES.clients
   ],
   ROLE_UNDEFINED: [
     // роль без доступа к вкладкам

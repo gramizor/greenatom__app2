@@ -123,6 +123,7 @@ const AutoGenForm: React.FC<IPropsAutoGenForm> = (props) => {
   }
 
   useEffect(() => {
+    console.log(props.mobx.constData)
   }, [props.mobx.constData])
 
   const tableAlias = props.mobx.constTableAlias;
@@ -152,7 +153,7 @@ const AutoGenForm: React.FC<IPropsAutoGenForm> = (props) => {
                         ? <td key={index * 100}>
                           {
                             tableAlias[aliasName].inputType === "selector"
-                              ? <Select name={`${aliasName}`} id={aliasName} {...tableAlias[aliasName].props} options={tableAlias[aliasName].props && tableAlias[aliasName].props?.options()} defaultValue={Number(props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]) - 1}/>
+                              ? <Select name={`${aliasName}`} id={aliasName} {...tableAlias[aliasName].props} options={tableAlias[aliasName].props && tableAlias[aliasName].props?.options()} defaultValue={Number(props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]) - 1 || 0}/>
                               : tableAlias[aliasName].inputType === "password"
                                 ? <EyeInput name={`${aliasName}`} id={aliasName} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
                                 : <Input name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
