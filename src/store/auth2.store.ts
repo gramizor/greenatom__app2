@@ -5,6 +5,9 @@ import { notificator } from "./notify.store";
 import LocalStorage from "../helpers/localstorage2.helper";
 import { IEmployee, UserRole } from "../types/employerTypes";
 
+// подключаем инстанс в axios
+import api from "../helpers/instanse.helper";
+
 /**
  * Заголовки, используемые в запросах к API для текущего стора
  */
@@ -80,7 +83,9 @@ class Authentificator {
     // console.log("Exp at", this._tokenData().exp, new Date(this._tokenData().exp))
     // console.log("Exp at * 1000", this._tokenData().exp, new Date(this._tokenData().exp * 1000))
     // console.log("Now", Date.now(), new Date(Date.now()))
-    return (Date.now() < (this._tokenData().exp * 1000)) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
+    // return (Date.now() < (this._tokenData().exp * 1000)) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
+    // return (true) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
+    return (this.gotUserData()) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
     // return ((Date.now() < (this._tokenData().exp * 1000)) && !!Object.keys(this.constUserData).length) // умножаем, чтобы превратить дату окончания с 1970 на 2024 год
   }
 
@@ -106,7 +111,7 @@ class Authentificator {
    */
   async signin(formBody: IAuthForm) {
     try {
-      const response = await axios.post(
+      const response = await api.post(
         process.env.REACT_APP_BACKEND_ORIGIN + "/api/auth/signin",
         formBody,
         {
@@ -132,7 +137,7 @@ class Authentificator {
     try {
       const body = { refreshToken: LocalStorage.get("rt") };
 
-      const response = await axios.post(
+      const response = await api.post(
         process.env.REACT_APP_BACKEND_ORIGIN + "/api/auth/access-token",
         body,
         {
@@ -155,7 +160,7 @@ class Authentificator {
    */
   async getMe() {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         process.env.REACT_APP_BACKEND_ORIGIN + `/api/employees/${this._tokenData().employee_id}`,
         {
           headers: {

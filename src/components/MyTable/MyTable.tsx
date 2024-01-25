@@ -17,7 +17,7 @@ export interface IConstTableAliasScheme {
   title: string,
   formTag?: ITableFormAction[],
   dataType?: "number" | "string",
-  inputType?: React.HTMLInputTypeAttribute | "selector" | "boolean",
+  inputType?: React.HTMLInputTypeAttribute | "selector" | "boolean" | "date",
   props?: { openWithDefaultValues?: () => any } & Record<string, () => any>;
   notInForm?: boolean
 }
@@ -122,7 +122,7 @@ const MyTableItem: React.FC<{ value: any, data_uid: number, [key: string]: any }
       modalmobx.show()
     }}
   >{
-      isObject(props.value) ? Object.values(props.value).join(", ") : `${props.value}`
+      isObject(props.value) ? Object.values(props.value).join(" ") : `${props.value}`
     }</td>;
 }
 

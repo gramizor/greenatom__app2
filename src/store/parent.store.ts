@@ -11,6 +11,8 @@ import LocalStorage from "../helpers/localstorage2.helper";
 import axios from "axios";
 import { notificator } from "./notify.store";
 
+import api from "../helpers/instanse.helper";
+
 export const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
 }
@@ -77,7 +79,7 @@ class ParentMobXStore {
    * @returns Код состояния от сервера
    */
   async create(data: { [key: string]: any }): Promise<number> {
-    const response = await axios.post(
+    const response = await api.post(
       process.env.REACT_APP_BACKEND_ORIGIN + `${this.apiEndpoint}`,
       data,
       {
@@ -97,7 +99,7 @@ class ParentMobXStore {
    * @returns Код состояния от сервера
    */
   async edit(data: { [key: string]: any }): Promise<number> {
-    const response = await axios.patch(
+    const response = await api.patch(
       process.env.REACT_APP_BACKEND_ORIGIN + `${this.apiEndpoint}${data.id}`,
       data,
       {
@@ -118,7 +120,7 @@ class ParentMobXStore {
    */
   async getAll(data: { [key: string]: any }): Promise<{[key: string]: any}> {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         process.env.REACT_APP_BACKEND_ORIGIN + `${this.apiEndpoint.slice(0, this.apiEndpoint.length - 1)}`,
         {
           headers: {
