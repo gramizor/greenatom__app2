@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styles from './Select.module.scss';
 import { observer } from 'mobx-react-lite';
 
-interface ISelectOption extends React.DetailedHTMLProps<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement> {
+export interface ISelectOption extends React.DetailedHTMLProps<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement> {
     name: string
+    displayName?: string
 }
 
 // type ISelectOption = string;
@@ -19,7 +20,7 @@ const Select: React.FC<ISelect> = (props) => {
     return <>
         <select className={styles.select} name={props.name} id={props.name} defaultValue={0} onChange={(e) => setInnerValue(props.options[Number(e.target.value)].name)} innervalue={innerValue} {...props}>
             {props.options && props.options.map((value: ISelectOption, index: number) => {
-                return <option value={index} key={index}>{value.name}</option>
+                return <option value={index} key={index}>{value.displayName ? value.displayName : value.name}</option>
             })}
         </select>
     </>

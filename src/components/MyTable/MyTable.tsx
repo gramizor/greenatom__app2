@@ -122,7 +122,7 @@ const MyTableItem: React.FC<{ value: any, data_uid: number, [key: string]: any }
       modalmobx.show()
     }}
   >{
-      isObject(props.value) ? Object.values(props.value).join(", ") : `${props.value}`
+      isObject(props.value) ? Object.values(props.value).join(" ") : `${props.value}`
     }</td>;
 }
 
