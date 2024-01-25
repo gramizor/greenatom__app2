@@ -13,7 +13,6 @@ Warehouse.apiEndpoint = "/api/products/"
 
 Warehouse.constTableAlias = {
   id: {
-    // @ts-ignore
     title: "ID", formTag: ['edit', 'filter', 'remove'], dataType: "number", inputType: "selector", props: { options: Warehouse.updateIds }
   },
   productName: { title: "Товар" },

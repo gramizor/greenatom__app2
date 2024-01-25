@@ -30,16 +30,24 @@ class ParentMobXStore {
 
   apiEndpoint: string = ""
 
+  /**
+   * Создает массив идентификаторов для селектора. Не трогать без необходимости
+   * @returns Массив идентификаторов
+   */
   updateIds = () => {
     return this.constData.map((entity: { [key: string]: any }) => { return { name: `${entity.id}` }; })
   }
 
+  /**
+   * Создает массив ролей для селектора
+   * @returns Массив ролей
+   */
   updateRoles = () => {
     return Object.keys(ROUTES_BY_ROLE).map((e) => { return { name: e } })
   }
 
   /**
-   * Удалить запись в таблице
+   * Удалить запись в таблице. Не трогать без необходимости
    * @param data Данные в необходимом формате
    * @returns Код состояния от сервера
    */

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IMyTableMOBX } from "../MyTable/MyTable";
 import { Table } from "react-bootstrap";
 import Select from "../Select/Select";
-import Input, { EyeInput } from "../Input/Input";
+import Input, { EyeInput, InputFile } from "../Input/Input";
 import { observer } from "mobx-react-lite";
 import { isEmpty } from "lodash";
 import { createFieldsByPath, objFromMobx } from "../../helpers/main.helper";
@@ -11,6 +11,7 @@ import styles from "./AutoGenForm.module.scss";
 import { notificator } from "../../store/notify.store";
 import { modalmobx } from "../../store/modal.store";
 import { mytablepaginator } from "../../store/table.store";
+import { inputfilestore } from "../../store/components/inputfile.store";
 
 /**
  * 
@@ -25,7 +26,7 @@ interface IPropsAutoGenForm {
   mobx: IMyTableMOBX
   action: ITableFormAction
   buttonsType?: IButtonsType
-  openWithDefaultValues? : {[key: string]: any}
+  openWithDefaultValues?: { [key: string]: any }
 }
 
 interface IPropsFormButtons {
@@ -50,6 +51,9 @@ const submitForm = (e: React.FormEvent<HTMLFormElement>, mobx: IMyTableMOBX, act
   const formData = new FormData(e.currentTarget);
   const obj: { [key: string]: any } = { ...(Object.fromEntries(formData.entries()) as unknown) as object };
 
+  console.log(formData)
+  console.log(obj)
+
   var requestBody = {};
 
   Object.keys(obj).forEach((fieldName: string, index: number) => {
@@ -59,26 +63,30 @@ const submitForm = (e: React.FormEvent<HTMLFormElement>, mobx: IMyTableMOBX, act
     if (mobx.constTableAlias[fieldName].inputType === "selector" && mobx.constTableAlias[fieldName].props && mobx.constTableAlias[fieldName]?.props?.options)
       // @ts-ignore
       data = mobx.constTableAlias[fieldName]?.props?.options()[Number(obj[fieldName])].name;
+    else if (mobx.constTableAlias[fieldName].inputType === "file") {
+      data = inputfilestore.get("default") || inputfilestore.get(fieldName);
+    }
     else
       data = obj[fieldName]
 
+    console.log(data)
 
     if (!isEmpty(data))
       requestBody = createFieldsByPath(requestBody, fieldName, data);
   })
-  
-  console.log(requestBody);
+
+  console.log(objFromMobx(requestBody));
 
   mobx[action as ITableMobxFormAction] && mobx[action as ITableMobxFormAction](requestBody as any)
-  .then((resp: number) => {
-    console.log(resp);
-    mobx.getAll({ [mytablepaginator.pageName]: mytablepaginator.page, [mytablepaginator.sizeName]: mytablepaginator.size })
-    notificator.push({children: "Изменена таблица", type: "positive"})
-  })
-  .catch((resp: number) => {
-    console.log(resp)
-    notificator.push({children: "Таблица не была изменена. Проверьте введенные данные", type: "error"})
-  })
+    .then((resp: number) => {
+      console.log(resp);
+      mobx.getAll({ [mytablepaginator.pageName]: mytablepaginator.page, [mytablepaginator.sizeName]: mytablepaginator.size })
+      notificator.push({ children: "Изменена таблица", type: "positive" })
+    })
+    .catch((resp: number) => {
+      console.log(resp)
+      notificator.push({ children: "Таблица не была изменена. Проверьте введенные данные", type: "error" })
+    })
 
 }
 
@@ -153,10 +161,12 @@ const AutoGenForm: React.FC<IPropsAutoGenForm> = (props) => {
                         ? <td key={index * 100}>
                           {
                             tableAlias[aliasName].inputType === "selector"
-                              ? <Select name={`${aliasName}`} id={aliasName} {...tableAlias[aliasName].props} options={tableAlias[aliasName].props && tableAlias[aliasName].props?.options()} defaultValue={Number(props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]) - 1 || 0}/>
+                              ? <Select name={`${aliasName}`} id={aliasName} {...tableAlias[aliasName].props} options={tableAlias[aliasName].props && tableAlias[aliasName].props?.options()} defaultValue={Number(props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]) - 1 || 0} />
                               : tableAlias[aliasName].inputType === "password"
                                 ? <EyeInput name={`${aliasName}`} id={aliasName} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
-                                : <Input name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
+                                : tableAlias[aliasName].inputType === "file"
+                                    ? <InputFile name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
+                                    : <Input name={`${aliasName}`} id={aliasName} type={tableAlias[aliasName].inputType} defaultValue={props?.openWithDefaultValues && props?.openWithDefaultValues[aliasName]} />
                           }
                         </td>
                         : ''

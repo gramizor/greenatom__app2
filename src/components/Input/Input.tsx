@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import styles from "./Input.module.scss";
 import SvgEyeOpen from "../../assets/svg/ui-eye-open.svg";
 import SvgEyeClose from "../../assets/svg/ui-eye-close.svg";
+import { inputfilestore } from "../../store/components/inputfile.store";
+import { isEmpty } from "lodash";
 
 interface IPropsInput
   extends React.DetailedHTMLProps<
@@ -42,6 +44,26 @@ export const EyeInput: React.FC<IPropsInput> = (props) => {
 const Input: React.FC<IPropsInput> = (props) => {
   return <input className={styles.input} {...props} />;
 };
+
+export const InputFile: React.FC<IPropsInput> = (props) => {
+
+  const [docxFile, setDocxFile] = useState<File | null>(null);
+
+  const handleDocxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedDocx = event.target.files?.[0];
+    if (selectedDocx) {
+      setDocxFile(selectedDocx);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        console.log(reader.result);
+        inputfilestore.set(props.name || "default", reader.result);
+      };
+      reader.readAsDataURL(selectedDocx);
+    }
+  };
+
+  return <Input {...props} type="file" onChange={(e) => handleDocxChange(e)}/>
+}
 
 export const InputSimple: React.FC<IPropsInput> = (props) => {
   return <input className={styles.inputSimple} {...props}/>
