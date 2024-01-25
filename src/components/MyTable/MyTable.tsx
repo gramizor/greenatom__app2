@@ -13,15 +13,17 @@ import AutoGenForm, { ITableFormAction } from "../AutoGenForm/AutoGenForm";
 import { mytablepaginator } from "../../store/table.store";
 
 
+export interface IConstTableAliasScheme {
+  title: string,
+  formTag?: ITableFormAction[],
+  dataType?: "number" | "string",
+  inputType?: React.HTMLInputTypeAttribute | "selector",
+  props?: { [key: string]: () => any },
+  notInForm?: boolean
+}
+
 export interface IConstTableAlias {
-  [key: string]: {
-    title: string,
-    formTag?: ITableFormAction[],
-    dataType?: "number" | "string",
-    inputType?: React.HTMLInputTypeAttribute | "selector",
-    props?: { [key: string]: () => any },
-    notInForm?: boolean
-  }
+  [key: string]: IConstTableAliasScheme
 }
 
 /**

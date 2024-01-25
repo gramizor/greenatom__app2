@@ -6,7 +6,7 @@
 
 import { makeAutoObservable, runInAction } from "mobx";
 import { ROUTES_BY_ROLE } from "../router/router";
-import { IConstTableAlias } from "../components/MyTable/MyTable";
+import { IConstTableAlias, IConstTableAliasScheme } from "../components/MyTable/MyTable";
 import LocalStorage from "../helpers/localstorage2.helper";
 import axios from "axios";
 import { notificator } from "./notify.store";
@@ -29,6 +29,16 @@ class ParentMobXStore {
   constTableAlias: IConstTableAlias = {} as IConstTableAlias
 
   apiEndpoint: string = ""
+
+  /**
+   * Возвращает дефолтную для формы алиас схему для поля id
+   * @returns Алиас схема для ID
+   */
+  _getDefaultIdAlias = (): IConstTableAliasScheme => {
+    return {
+      title: "ID", formTag: ['edit', 'filter', 'remove'], dataType: "number", inputType: "selector", props: { options: this.updateIds }
+    }
+  }
 
   /**
    * Создает массив идентификаторов для селектора. Не трогать без необходимости

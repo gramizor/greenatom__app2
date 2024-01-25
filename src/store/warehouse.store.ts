@@ -1,9 +1,4 @@
-import { makeAutoObservable } from "mobx";
-import { IConstTableAlias, IMyTableMOBX } from "../components/MyTable/MyTable";
-import { IProduct } from "../types/warehouseTypes";
-import ParentMobXStore, { DEFAULT_HEADERS } from "./parent.store";
-import axios from "axios";
-import LocalStorage from "../helpers/localstorage2.helper";
+import ParentMobXStore from "./parent.store";
 
 const Warehouse = new ParentMobXStore();
 
@@ -12,9 +7,7 @@ Warehouse.constTableTitle = "Склад";
 Warehouse.apiEndpoint = "/api/products/"
 
 Warehouse.constTableAlias = {
-  id: {
-    title: "ID", formTag: ['edit', 'filter', 'remove'], dataType: "number", inputType: "selector", props: { options: Warehouse.updateIds }
-  },
+  id: Warehouse._getDefaultIdAlias(),
   productName: { title: "Товар" },
   unit: { title: "Ед. измерения" },
   storageAmount: { title: "Количество", dataType: "number", inputType: "number" },
